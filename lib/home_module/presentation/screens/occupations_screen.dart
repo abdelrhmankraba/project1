@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project1/module/presentation/screens/add_occupations_screen.dart';
+import 'package:project1/home_module/presentation/screens/add_occupations_screen.dart';
 import 'package:sizer/sizer.dart';
 
 class Occupations extends StatelessWidget {

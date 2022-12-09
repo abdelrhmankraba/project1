@@ -1,8 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
-import 'package:project1/module/presentation/screens/home_screen.dart';
+import 'package:project1/home_module/presentation/screens/home_screen.dart';
 import 'package:sizer/sizer.dart';
 import '../../../login_module/presentation/component/component.dart';
 
@@ -54,8 +55,8 @@ class AddOccupationScreen extends StatelessWidget {
                           children: [
                             Text(
                               'اسم المنشأة',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 10.sp),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 10.sp),
                             ),
                             Container(
                               alignment: Alignment.center,
@@ -87,8 +88,8 @@ class AddOccupationScreen extends StatelessWidget {
                           children: [
                             Text(
                               'العنوان',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 10.sp),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 10.sp),
                             ),
                             Container(
                               alignment: Alignment.center,
@@ -124,8 +125,8 @@ class AddOccupationScreen extends StatelessWidget {
                           children: [
                             Text(
                               'اسم المالك',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 10.sp),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 10.sp),
                             ),
                             Container(
                               alignment: Alignment.center,
@@ -157,8 +158,8 @@ class AddOccupationScreen extends StatelessWidget {
                           children: [
                             Text(
                               'رقم الهاتف',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 10.sp),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 10.sp),
                             ),
                             Directionality(
                               textDirection: TextDirection.ltr,
@@ -168,12 +169,15 @@ class AddOccupationScreen extends StatelessWidget {
                                 length: 11,
                                 width: 100.w,
                                 onCompleted: (pin) {
-                                  print("Completed: " + pin);
+                                  if (kDebugMode) {
+                                    print("Completed: $pin");
+                                  }
                                 },
                                 otpFieldStyle: OtpFieldStyle(
                                   focusBorderColor: Colors.white,
                                 ),
-                                textFieldAlignment: MainAxisAlignment.spaceAround,
+                                textFieldAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 fieldWidth: 5.w,
                                 fieldStyle: FieldStyle.box,
                                 outlineBorderRadius: 5.sp,
@@ -207,7 +211,9 @@ class AddOccupationScreen extends StatelessWidget {
                         width: 100.w,
                         keyboardType: TextInputType.phone,
                         onCompleted: (pin) {
-                          print("Completed: " + pin);
+                          if (kDebugMode) {
+                            print("Completed: $pin");
+                          }
                         },
                         otpFieldStyle: OtpFieldStyle(
                           focusBorderColor: Colors.white,
@@ -363,7 +369,7 @@ class AddOccupationScreen extends StatelessWidget {
                                 notFulfilled.text =
                                     value.toString().substring(0, 10);
                                 DateTime datetime =
-                                DateTime(value.year, m, value.day);
+                                    DateTime(value.year, m, value.day);
                                 reNotFulfilled.text =
                                     datetime.toString().substring(0, 10);
                               });
@@ -415,13 +421,12 @@ class AddOccupationScreen extends StatelessWidget {
                     alignment: Alignment.center,
                     child: MaterialButton(
                       onPressed: () {
-                        if(formKey.currentState!.validate()){
+                        if (formKey.currentState!.validate()) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder:
-                                      (BuildContext context) =>
-                                  const HomeScreen()));
+                                  builder: (BuildContext context) =>
+                                      const HomeScreen()));
                         }
                       },
                       child: Text(

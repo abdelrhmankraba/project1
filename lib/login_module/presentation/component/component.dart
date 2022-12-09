@@ -1,3 +1,6 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 
 Widget defaultTextForm({
@@ -16,7 +19,7 @@ Widget defaultTextForm({
   bool isPassword = false,
 }) =>
     TextFormField(
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
       ),
       readOnly: readOnly,
@@ -37,7 +40,11 @@ Widget defaultTextForm({
         return validate(s);
       },
       decoration: InputDecoration(
-
+        errorStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+        ),
         labelStyle: const TextStyle(
           color: Colors.white,
         ),
@@ -46,14 +53,16 @@ Widget defaultTextForm({
         prefixIcon: Icon(
           prefix,
         ),
-        suffixIcon: suffix != null ? IconButton(
-          onPressed: () {
-            suffixPress!();
-          },
-          icon: Icon(
-            suffix,
-          ),
-        ) : null,
+        suffixIcon: suffix != null
+            ? IconButton(
+                onPressed: () {
+                  suffixPress!();
+                },
+                icon: Icon(
+                  suffix,
+                ),
+              )
+            : null,
       ),
     );
 
@@ -64,14 +73,16 @@ Widget defaultButton({
   bool isUpperCase = true,
   required String text,
   required Function function,
-}) => Container(
+}) =>
+    Container(
       width: width,
       decoration: BoxDecoration(
         color: background,
         borderRadius: BorderRadius.circular(radius),
       ),
       child: MaterialButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
         onPressed: () {
           function();
         },
@@ -93,5 +104,20 @@ Widget defaultTextButton({required Function function, required String text}) =>
       },
       child: Text(
         text.toUpperCase(),
+      ),
+    );
+
+SnackBar Bar(
+        {required String title,
+        required String message,
+        required ContentType contentType}) =>
+    SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+        title: title,
+        message: message,
+        contentType: contentType,
       ),
     );

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'login_module/presentation/screens/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'home_module/presentation/screens/home_screen.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
 }
 
 class MyApp extends StatelessWidget {
@@ -24,12 +25,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xFF3F4048),
         fontFamily: 'ElMessiri',
-        primarySwatch: Colors.cyan,
+        primarySwatch: Colors.blueGrey,
         primaryColor: const Color(0xFF1C30E0),
-
       ),
-      home: const LoginScreen(),
+      home: const HomeScreen(),
     );
   }
 }
