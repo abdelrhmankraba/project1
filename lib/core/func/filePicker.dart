@@ -3,11 +3,13 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
-
+import 'package:project1/home_module/presentation/screens/add_occupations_screen.dart';
 class Fun {
   String filetext = "";
 
-  void pickFile() async {
+  void pickFile1() async{
+
+    late File _file;
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowedExtensions: ['jpg', 'png', 'docx', 'pdf'],
     );
@@ -18,7 +20,7 @@ class Fun {
         print(file.name);
       }
       // normal file
-      File _file = File(result.files.single.path!);
+      _file = File(result.files.single.path!);
       //you have set state to change file ;
     } else {
       // remove the picker
@@ -26,34 +28,55 @@ class Fun {
         print('users remove picker');
       }
     }
+    w=_file;
   }
 
-  void pickMultipleFiles() async {
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(allowMultiple: true);
-    if (result != null) {
-      List<File> files = result.paths.map((path) => File(path!)).toList();
+  void pickFile2() async{
+
+    late File _file;
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowedExtensions: ['jpg', 'png', 'docx', 'pdf'],
+    );
+    if (result != null && result.files.single.path != null) {
+      // load result and files details
+      PlatformFile file = result.files.first;
       if (kDebugMode) {
-        print(files.length);
+        print(file.name);
       }
-      // filetext = files.toString();
-      //set states
+      // normal file
+      _file = File(result.files.single.path!);
+      //you have set state to change file ;
     } else {
+      // remove the picker
       if (kDebugMode) {
-        print("users canceled pick");
+        print('users remove picker');
       }
     }
+    img=_file;
   }
 
-  void pickDirectory() async {
-    String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
-    if (selectedDirectory != null) {
-      // set state
-      //filetext  = selectedDirectory
-    } else {
+  void pickFile3() async{
+
+    late File _file;
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowedExtensions: ['jpg', 'png', 'docx', 'pdf'],
+    );
+    if (result != null && result.files.single.path != null) {
+      // load result and files details
+      PlatformFile file = result.files.first;
       if (kDebugMode) {
-        print("users canceled the picker");
+        print(file.name);
+      }
+      // normal file
+      _file = File(result.files.single.path!);
+      //you have set state to change file ;
+    } else {
+      // remove the picker
+      if (kDebugMode) {
+        print('users remove picker');
       }
     }
+    s=_file;
   }
+
 }

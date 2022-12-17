@@ -1,4 +1,7 @@
 // ignore_for_file: unused_field
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project1/core/constant/linkapi.dart';
@@ -18,8 +21,10 @@ class HomeCubit extends Cubit<HomeState> {
   final Curd _curd = Curd();
   Region? region;
   Place? place;
+  Occupation? occupation;
 
   getRegion() async {
+    region = null;
     emit(RegionLoadingState());
     var response = await _curd.getRequest(AppLink.getRegionLink);
     if (response['status'] == 'success') {
@@ -101,9 +106,8 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Occupation? occupation;
-
   getOccupation({required String id}) async {
+    occupation = null;
     emit(OccupationLoadingState());
     var response = await _curd.postRequest(AppLink.getOccupationLink, {
       'ID_Place': id,
@@ -127,7 +131,7 @@ class HomeCubit extends Cubit<HomeState> {
     });
     if (response['status'] == 'success') {
       emit(InsertOccupationSuccessState());
-      getOccupation(id: idPlace);
+      getOccupation(id: idPlace2);
     } else {
       emit(InsertOccupationErrorState());
     }
@@ -152,8 +156,48 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   int num = 0;
+
   changeRadioBox({required int value}) {
     num = value;
     emit(ChangeRadioBoxState());
+  }
+
+  insertFile({
+    required String name,
+    required String address,
+    required String owner,
+    required String number,
+    required String idCard,
+    required String phone,
+    required String date1,
+    required String date2,
+    required String choice,
+    required String idOccupation,
+    required File file,
+    required File image,
+    required File scan,
+  }) async {
+    emit(InsertFileLoadingState());
+
+    var response = await _curd.postRequestWithFile(AppLink.insertFileLink, {
+      'name': name,
+      'address': address,
+      'owner': owner,
+      'number': number,
+      'ID_Card': idCard,
+      'phone': phone,
+      'date1': date1,
+      'date2': date2,
+      'choice': choice,
+      'ID_Occupancy': idOccupation,
+    },file,image,scan);
+    if (response['status'] == 'success') {
+      emit(InsertFileSuccessState());
+      if (kDebugMode) {
+        print('success');
+      }
+    } else {
+      emit(InsertFileErrorState());
+    }
   }
 }

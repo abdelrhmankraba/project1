@@ -330,7 +330,6 @@ class GetRegion extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {},
       builder: (context, state) {
-        HomeCubit.get(context).getRegion();
         return ConditionalBuilder(
           condition: HomeCubit.get(context).region != null,
           builder: (context) => ListView.separated(

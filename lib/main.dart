@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:project1/home_module/presentation/controller/home_cubit.dart';
-import 'package:project1/home_module/presentation/screens/test_file.dart';
+import 'package:project1/home_module/presentation/screens/add_occupations_screen.dart';
+import 'package:project1/home_module/presentation/screens/home_screen.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(),
+      create: (context) => HomeCubit()..getRegion(),
       child: MaterialApp(
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blueGrey,
           primaryColor: const Color(0xFF1C30E0),
         ),
-        home: const TestPage(),
+        home: const HomeScreen(),
       ),
     );
   }

@@ -53,4 +53,11 @@ class InsertOccupationErrorState extends HomeState {}
 class DeleteOccupationSuccessState extends HomeState {}
 
 class DeleteOccupationErrorState extends HomeState {}
+
+class InsertFileLoadingState extends HomeState {}
+
+class InsertFileSuccessState extends HomeState {}
+
+class InsertFileErrorState extends HomeState {}
+
 class ChangeRadioBoxState extends HomeState {}

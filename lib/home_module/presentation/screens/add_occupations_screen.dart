@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +9,12 @@ import 'package:otp_text_field/style.dart';
 import 'package:project1/home_module/presentation/controller/home_cubit.dart';
 import 'package:project1/home_module/presentation/screens/home_screen.dart';
 import 'package:sizer/sizer.dart';
+import '../../../core/func/filePicker.dart';
 import '../../../login_module/presentation/component/component.dart';
-
+import 'occupations_screen.dart';
+late File img;
+late File w;
+late File s;
 class AddOccupationScreen extends StatelessWidget {
   const AddOccupationScreen({Key? key}) : super(key: key);
 
@@ -19,10 +25,13 @@ class AddOccupationScreen extends StatelessWidget {
       var facilityName = TextEditingController();
       var address = TextEditingController();
       var ownerName = TextEditingController();
+      var cellNumber = TextEditingController();
       var phone = OtpFieldController();
       var nationalID = OtpFieldController();
       var fulfilled = TextEditingController();
       var reFulfilled = TextEditingController();
+      late DateTime datetime1;
+      late DateTime datetime2;
       int? m;
 
       return BlocConsumer<HomeCubit, HomeState>(
@@ -117,6 +126,39 @@ class AddOccupationScreen extends StatelessWidget {
                               ],
                             ),
                           ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'رقم الخانه',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 10.sp),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  margin: EdgeInsets.only(left: 10.w),
+                                  child: defaultTextForm(
+                                    controller: cellNumber,
+                                    keyboardType: TextInputType.emailAddress,
+                                    label: '',
+                                    prefix: Icons.email_outlined,
+                                    onSubmit: (value) {},
+                                    onChange: (value) {},
+                                    onTap: () {},
+                                    validate: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return 'ادخل رقم الخانه';
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -174,11 +216,13 @@ class AddOccupationScreen extends StatelessWidget {
                                     isDense: true,
                                     length: 11,
                                     width: 100.w,
+
                                     onCompleted: (String? pin) {
                                       if (kDebugMode) {
                                         print("Completed: $pin");
                                       }
                                     },
+                                    onChanged: (String? pin){},
                                     otpFieldStyle: OtpFieldStyle(
                                       focusBorderColor: Colors.white,
                                     ),
@@ -216,6 +260,7 @@ class AddOccupationScreen extends StatelessWidget {
                             length: 14,
                             width: 100.w,
                             keyboardType: TextInputType.phone,
+                            onChanged: (String? pin){},
                             onCompleted: (String? pin) {
                               if (kDebugMode) {
                                 print("Completed: $pin");
@@ -239,7 +284,11 @@ class AddOccupationScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Fun().pickFile1();
+
+                             // print(file.path);
+                            },
                             icon: Icon(
                               Icons.wordpress,
                               size: 8.w,
@@ -250,7 +299,10 @@ class AddOccupationScreen extends StatelessWidget {
                             width: 20.w,
                           ),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Fun().pickFile2();
+
+                                },
                               icon: Icon(
                                 Icons.camera,
                                 size: 8.w,
@@ -260,7 +312,9 @@ class AddOccupationScreen extends StatelessWidget {
                             width: 20.w,
                           ),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Fun().pickFile3();
+                              },
                               icon: Icon(
                                 Icons.scanner,
                                 size: 8.w,
@@ -339,12 +393,11 @@ class AddOccupationScreen extends StatelessWidget {
                                     } else {
                                       m = value!.month + 1;
                                     }
-                                    fulfilled.text =
-                                        value.toString().substring(0, 10);
-                                    DateTime datetime =
-                                        DateTime(value.year, m!, value.day);
-                                    reFulfilled.text =
-                                        datetime.toString().substring(0, 10);
+                                    datetime1 = DateTime(value.year,value.month,value.day);
+                                    fulfilled.text = value.toString().substring(0, 10);
+                                    datetime2 = DateTime(value.year, m!, value.day);
+                                    print(datetime2);
+                                    reFulfilled.text = datetime2.toString().substring(0, 10);
                                   });
                                 },
                                 validate: (String value) {
@@ -399,6 +452,21 @@ class AddOccupationScreen extends StatelessWidget {
                         child: MaterialButton(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
+                              HomeCubit.get(context).insertFile(
+                                name: facilityName.text,
+                                address: address.text,
+                                owner: ownerName.text,
+                                number: cellNumber.text,
+                                idCard: nationalID.toString(),
+                                phone: phone.toString(),
+                                date1: datetime1.toString(),
+                                date2: datetime2.toString(),
+                                choice: HomeCubit.get(context).num.toString(),
+                                idOccupation: idOccupation2,
+                                file: w,
+                                image: img,
+                                scan: s,
+                              );
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

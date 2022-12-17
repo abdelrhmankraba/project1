@@ -8,7 +8,7 @@ import 'package:project1/login_module/presentation/component/component.dart';
 import 'package:sizer/sizer.dart';
 
 import 'home_screen.dart';
-
+late String idOccupation2;
 class OccupationsScreen extends StatelessWidget {
   const OccupationsScreen({Key? key}) : super(key: key);
 
@@ -26,6 +26,11 @@ class OccupationsScreen extends StatelessWidget {
             onPressed: () {},
             icon: const Icon(Icons.search),
           ),
+          actions: [
+            IconButton(onPressed: (){
+              Navigator.pop(context);
+            }, icon: const Icon(Icons.arrow_forward)),
+          ],
         ),
         body: Form(
           key: formKey,
@@ -39,82 +44,85 @@ class OccupationsScreen extends StatelessWidget {
                     Expanded(
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsetsDirectional.all(30.0),
-                                padding: const EdgeInsetsDirectional.all(10.0),
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFF313232),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
-                                ),
-                                child: Text(
-                                  'اشغالات $namePlace ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15.sp,
+                          SingleChildScrollView(
+                            scrollDirection:Axis.horizontal,
+                            child: Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsetsDirectional.all(30.0),
+                                  padding: const EdgeInsetsDirectional.all(10.0),
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFF313232),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0)),
                                   ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 20.0,
-                              ),
-                              Container(
-                                margin: const EdgeInsetsDirectional.all(20.0),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 50.0, vertical: 5.0),
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFF1C30E0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
-                                ),
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    if (formKey.currentState!.validate()) {
-                                      HomeCubit.get(context).insertOccupation(
-                                          name: occupationController.text,
-                                          idPlace: idPlace2);
-                                      occupationController.text = '';
-                                    }
-                                  },
                                   child: Text(
-                                    'اضافه',
+                                    'اشغالات $namePlace ',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 15.sp,
                                     ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 20.0,
-                              ),
-                              Container(
-                                width: 80.w,
-                                margin: const EdgeInsetsDirectional.all(20.0),
-                                padding: const EdgeInsetsDirectional.all(10.0),
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFF313232),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
+                                const SizedBox(
+                                  width: 20.0,
                                 ),
-                                child: defaultTextForm(
-                                  controller: occupationController,
-                                  keyboardType: TextInputType.text,
-                                  label: 'اشغال جديد',
-                                  prefix: Icons.ac_unit,
-                                  onTap: () {},
-                                  onChange: (value) {},
-                                  onSubmit: (value) {},
-                                  validate: (String? value) {
-                                    if (value!.isEmpty) {
-                                      return 'ادخل اسم الاشغاله الجديده';
-                                    }
-                                  },
+                                Container(
+                                  margin: const EdgeInsetsDirectional.all(20.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50.0, vertical: 5.0),
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFF1C30E0),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0)),
+                                  ),
+                                  child: MaterialButton(
+                                    onPressed: () {
+                                      if (formKey.currentState!.validate()) {
+                                        HomeCubit.get(context).insertOccupation(
+                                            name: occupationController.text,
+                                            idPlace: idPlace2);
+                                        occupationController.text = '';
+                                      }
+                                    },
+                                    child: Text(
+                                      'اضافه',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15.sp,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ],
+                                const SizedBox(
+                                  width: 20.0,
+                                ),
+                                Container(
+                                  width: 80.w,
+                                  margin: const EdgeInsetsDirectional.all(20.0),
+                                  padding: const EdgeInsetsDirectional.all(10.0),
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFF313232),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0)),
+                                  ),
+                                  child: defaultTextForm(
+                                    controller: occupationController,
+                                    keyboardType: TextInputType.text,
+                                    label: 'اشغال جديد',
+                                    prefix: Icons.ac_unit,
+                                    onTap: () {},
+                                    onChange: (value) {},
+                                    onSubmit: (value) {},
+                                    validate: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return 'ادخل اسم الاشغاله الجديده';
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(
                             height: 20.0,
@@ -151,16 +159,21 @@ class OccupationsScreen extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              HomeCubit.get(context)
-                                                  .occupation!
-                                                  .data[index]
-                                                  .name!,
-                                              style: TextStyle(
-                                                fontSize: 15.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
+                                            TextButton(
+                                              child: Text(
+                                                HomeCubit.get(context)
+                                                    .occupation!
+                                                    .data[index]
+                                                    .name!,
+                                                style: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
                                               ),
+                                              onPressed: (){
+                                                idOccupation2= HomeCubit.get(context).occupation!.data[index].id!;
+                                              },
                                             ),
                                             SizedBox(
                                               height: 2.h,
@@ -171,6 +184,7 @@ class OccupationsScreen extends StatelessWidget {
                                               children: [
                                                 MaterialButton(
                                                   onPressed: () {
+                                                    idOccupation2= HomeCubit.get(context).occupation!.data[index].id!;
                                                     Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
