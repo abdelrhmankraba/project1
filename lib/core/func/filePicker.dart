@@ -1,14 +1,12 @@
 // ignore_for_file: file_names, unused_local_variable, no_leading_underscores_for_local_identifiers
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:project1/home_module/presentation/screens/add_occupations_screen.dart';
+
 class Fun {
   String filetext = "";
-
-  void pickFile1() async{
-
+  void pickFile1() async {
     late File _file;
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowedExtensions: ['jpg', 'png', 'docx', 'pdf'],
@@ -28,11 +26,10 @@ class Fun {
         print('users remove picker');
       }
     }
-    w=_file;
+    w = _file;
   }
 
-  void pickFile2() async{
-
+  void pickFile2() async {
     late File _file;
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowedExtensions: ['jpg', 'png', 'docx', 'pdf'],
@@ -52,11 +49,10 @@ class Fun {
         print('users remove picker');
       }
     }
-    img=_file;
+    img = _file;
   }
 
-  void pickFile3() async{
-
+  void pickFile3() async {
     late File _file;
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowedExtensions: ['jpg', 'png', 'docx', 'pdf'],
@@ -76,7 +72,6 @@ class Fun {
         print('users remove picker');
       }
     }
-    s=_file;
+    s = _file;
   }
-
 }

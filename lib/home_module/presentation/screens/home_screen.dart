@@ -1,8 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project1/core/func/message_box.dart';
 import 'package:project1/home_module/presentation/controller/home_cubit.dart';
 import 'package:project1/home_module/presentation/screens/place_screen.dart';
+import 'package:project1/home_module/presentation/screens/search_screen.dart';
 import 'package:project1/login_module/presentation/component/component.dart';
 import 'package:sizer/sizer.dart';
 
@@ -23,7 +25,13 @@ class HomeScreen extends StatelessWidget {
             appBar: AppBar(
               leading: IconButton(
                 iconSize: 13.sp,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                          const SearchScreen()));
+                },
                 icon: const Icon(Icons.search),
                 color: Colors.white,
               ),
@@ -364,7 +372,25 @@ class GetRegion extends StatelessWidget {
 
                   IconButton(
                       onPressed: () {
-                        HomeCubit.get(context).deleteRegion(id: HomeCubit.get(context).region!.data[index].id!);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context)=>AlertDialog(
+                            title: Text('تأكيد الحذف'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'Cancel'),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: (){
+                                  HomeCubit.get(context).deleteRegion(id: HomeCubit.get(context).region!.data[index].id!);
+                                  return Navigator.pop(context,'ok');
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       icon: Icon(
                         Icons.delete_outline_rounded,

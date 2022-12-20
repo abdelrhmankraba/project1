@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project1/home_module/presentation/controller/home_cubit.dart';
 import 'package:project1/home_module/presentation/screens/add_occupations_screen.dart';
 import 'package:project1/home_module/presentation/screens/place_screen.dart';
+import 'package:project1/home_module/presentation/screens/search_screen.dart';
 import 'package:project1/login_module/presentation/component/component.dart';
 import 'package:sizer/sizer.dart';
 
@@ -23,7 +24,13 @@ class OccupationsScreen extends StatelessWidget {
           backgroundColor: const Color(0xFF313232),
           leading: IconButton(
             color: Colors.white,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                      const SearchScreen()));
+            },
             icon: const Icon(Icons.search),
           ),
           actions: [

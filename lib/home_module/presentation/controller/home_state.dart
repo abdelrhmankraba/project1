@@ -61,3 +61,15 @@ class InsertFileSuccessState extends HomeState {}
 class InsertFileErrorState extends HomeState {}
 
 class ChangeRadioBoxState extends HomeState {}
+
+class FilesDataLoadingState extends HomeState {}
+
+class FilesDataSuccessState extends HomeState {}
+
+class FilesDataErrorState extends HomeState {}
+
+class SearchLoadingState extends HomeState {}
+
+class SearchSuccessState extends HomeState {}
+
+class SearchErrorState extends HomeState {}

@@ -91,7 +91,25 @@ class PlaceScreen extends StatelessWidget {
                                     SizedBox(width: 2.w,),
                                     IconButton(
                                         onPressed: () {
-                                          HomeCubit.get(context).deletePlace(id: HomeCubit.get(context).place!.data[index].id!, idRegion: idRegion2);
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context)=>AlertDialog(
+                                              title: Text('تأكيد الحذف'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                                                  child: const Text('Cancel'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: (){
+                                                    HomeCubit.get(context).deletePlace(id: HomeCubit.get(context).place!.data[index].id!, idRegion: idRegion2);
+                                                    return Navigator.pop(context,'ok');
+                                                  },
+                                                  child: const Text('OK'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
                                         },
                                         icon: Icon(
                                           Icons.delete_outline_rounded,

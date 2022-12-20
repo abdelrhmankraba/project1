@@ -1,10 +1,10 @@
 // ignore_for_file: unused_field
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project1/core/constant/linkapi.dart';
+import 'package:project1/home_module/file_model.dart';
 import 'package:project1/home_module/place_model.dart';
 import 'package:project1/home_module/presentation/screens/home_screen.dart';
 import 'package:project1/home_module/presentation/screens/place_screen.dart';
@@ -198,6 +198,24 @@ class HomeCubit extends Cubit<HomeState> {
       }
     } else {
       emit(InsertFileErrorState());
+    }
+  }
+  GetFilesName? facilities;
+  getFilesData({required String idOccupation})async{
+    facilities= null;
+    emit(FilesDataLoadingState());
+    var response = await _curd.postRequest(AppLink.getOccupationLink, {
+      'ID_Occupancy': idOccupation,
+    });
+    if (response['status'] == 'success') {
+      emit(FilesDataSuccessState());
+      facilities = GetFilesName.fromJson(response);
+
+    } else {
+      if (kDebugMode) {
+        print('error');
+      }
+      emit(FilesDataErrorState());
     }
   }
 }
